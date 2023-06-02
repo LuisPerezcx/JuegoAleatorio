@@ -4,37 +4,37 @@ import generar.Caracteres;
 import generar.Numeros;
 
 import java.util.Scanner;
-import java.util.SortedMap;
 
 public class Juego {
-    static int perdidas=0;
-    static int puntos=0;
-    static char opc;
+    public static int perdidas=0;
+    public int puntos,op1,op;
+    static char opc,pc;
     Numeros numeros = new Numeros();
     Caracteres caracteres = new Caracteres();
-    public void jugar(Scanner scanner){
+
+    public void jugar(char c){
         opc='a';
         System.out.println("Pulsa 0 para salir");
-        while (opc != '0'){
-            if(perdidas==100)
-                break;
-            if(puntos<=10){
-                cmpCaracteres(scanner);
-            } else if (puntos>10 & puntos<=20){
-                cmpNumeros(scanner);
-            } else if (puntos>20 & puntos<=30) {
-                cmpNumerosPares(scanner);
-            } else if (puntos>40) {
-                cmpNumerosImpares(scanner);
-            }
-            System.out.println("PUNTOS = " + puntos + " | " + "PERDIDAS = " + perdidas);
+        if(perdidas==100)
+            System.out.println("a");
+        if(puntos<=10){
+            cmpCaracteres(c);
+        } else if (puntos>10 & puntos<=20){
+            cmpNumeros(c);
+        } else if (puntos>20 & puntos<=30) {
+            cmpNumerosPares(c);
+        } else if (puntos>40) {
+            cmpNumerosImpares(c);
         }
+        System.out.println("PUNTOS = " + puntos + " | " + "PERDIDAS = " + perdidas);
+
     }
-    private void cmpCaracteres(Scanner scanner){
-        char pc;
+    private void cmpCaracteres(char c){
+
         System.out.println("----------------------------------------------------------------\nN I V E L 1\n");
-        System.out.println("Ingresa un caracter (minuscula)");
-        opc = scanner.next().charAt(0);
+        opc = c;
+        System.out.print("Ingresa un caracter (minuscula): ");
+        System.out.println(String.valueOf(c));
         pc = caracteres.generarCaracteres();
         System.out.println("Caracter generado: " + pc);
         if (opc==pc){
@@ -42,11 +42,10 @@ public class Juego {
             System.out.println("punto");
         }else perdidas++;
     }
-    private void cmpNumeros(Scanner scanner){
-        int op,op1;
+    private void cmpNumeros(char c){
         System.out.println("----------------------------------------------------------------\nN I V E L 2\n");
         System.out.println("Ingresa un numero");
-        opc = scanner.next().charAt(0);
+        opc = c;
         op = Integer.parseInt(String.valueOf(opc));
         op1 = numeros.generarNumeros();
         System.out.println("Numero generado: " + op1);
@@ -55,11 +54,10 @@ public class Juego {
             System.out.println("punto");
         }else perdidas ++;
     }
-    private  void cmpNumerosPares(Scanner scanner){
-        int op,op1;
+    private  void cmpNumerosPares(char c){
         System.out.println("----------------------------------------------------------------\nN I V E L 3\n");
         System.out.println("Ingresa un numero");
-        opc = scanner.next().charAt(0);
+        opc = c;
         op = Integer.parseInt(String.valueOf(opc));
         op1 = numeros.generarNumerosPares();
         System.out.println("Numero generado: " + op1);
@@ -68,11 +66,10 @@ public class Juego {
             System.out.println("punto");
         }else perdidas ++;
     }
-    private  void cmpNumerosImpares(Scanner scanner){
-        int op,op1;
+    private  void cmpNumerosImpares(char c){
         System.out.println("----------------------------------------------------------------\nN I V E L 4\n");
         System.out.println("Ingresa un numero");
-        opc = scanner.next().charAt(0);
+        opc = c;
         op = Integer.parseInt(String.valueOf(opc));
         op1 = numeros.generarNumerosImpar();
         System.out.println("Numero generado: " + op1);
@@ -80,5 +77,19 @@ public class Juego {
             puntos++;
             System.out.println("punto");
         }else perdidas ++;
+    }
+
+    public int getPerdidas() {
+        return perdidas;
+    }
+
+    public int getPuntos() {
+        return puntos;
+    }
+    public int getOp1(){
+        return op1;
+    }
+    public char getPc(){
+        return pc;
     }
 }
